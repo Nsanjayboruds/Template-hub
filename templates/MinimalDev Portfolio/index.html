@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinimalDev | Developer Portfolio</title>
+    <style>
+        /* Modern CSS Reset */
+        :root {
+            --bg: #ffffff;
+            --text: #222222;
+            --primary: #3b82f6;
+            --primary-light: #93c5fd;
+            --secondary: #64748b;
+            --secondary-light: #e5e7eb;
+            --border: #e5e7eb;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --container-width: min(90%, 700px);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111111;
+                --text: #f3f4f6;
+                --secondary: #9ca3af;
+                --secondary-light: #1f2937;
+                --border: #374151;
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+                --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin: 0;
+        }
+
+        h2 {
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+        }
+
+        p, li {
+            color: var(--secondary);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition);
+            text-underline-offset: 0.2em;
+        }
+
+        a:hover {
+            color: var(--text);
+            text-decoration: underline;
+        }
+
+        /* Layout */
+        .container {
+            width: var(--container-width);
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background-image: url();
+            object-fit: cover;
+            border: 2px solid var(--border);
+            transition: transform var(--transition), border-color var(--transition);
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .tagline {
+            margin: 0.5rem 0 1rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--secondary);
+            padding: 0.25rem 0;
+            transition: color var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .social-link svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.8;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 1rem;
+        }
+
+        /* Projects */
+        .projects {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .project {
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            transition: box-shadow var(--transition), transform var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .project:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .project-title {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-title svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            font-size: 0.875rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .project-link:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            color: white;
+            text-decoration: none;
+        }
+
+        .project-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Skills */
+        .skills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .skill {
+            font-size: 0.875rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--secondary-light);
+            transition: all var(--transition);
+        }
+
+        .skill:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: var(--secondary-light);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header, section {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem 0;
+            }
+            
+            header {
+                margin-bottom: 2rem;
+            }
+            
+            section {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .theme-toggle {
+                display: none;
+            }
+            
+            .project-link {
+                display: none;
+            }
+            
+            a::after {
+                content: " (" attr(href) ") ";
+                font-size: 0.8em;
+                font-weight: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+    </button>
+    
+    <div class="container">
+        <header>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7XoPHO0DSZSHng3PZmKp6azldMwfYaGmlRQ&s" alt="" class="avatar">
+            <div>
+                <h1>Alex Developer</h1>
+                <p class="tagline">Senior Frontend Engineer & UI Architect</p>
+                <div class="social-links">
+                    <a href="https://github.com" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a href="mailto:email@example.com" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Email
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2 id="about">About</h2>
+            <p>
+                I'm a frontend architect specializing in React, TypeScript, and design systems. With 8+ years of experience, 
+                I help companies build scalable, accessible, and performant web applications.
+            </p>
+            <p>
+                My approach emphasizes clean code, component architecture, and progressive enhancement. When not coding, I 
+                contribute to open source and mentor junior developers.
+            </p>
+        </section>
+
+        <section class="projects">
+            <h2 id="projects">Selected Projects</h2>
+            
+            <article class="project">
+                <h3 class="project-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    React Component Library
+                </h3>
+                <p class="project-description">
+                    Comprehensive design system with 50+ accessible components, documentation, and theming support.
+                </p>
+                <div class="project-links">
+                    <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Live Demo
+                    </a>
+                    <a href="#" class="project-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Source Code
+                    </a>
+                    <a href="#" class="project-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                        Case Study
+                    </a>
+                </div>
+            </article>
+            
+            <article class="project">
+                <h3 class="project-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Security Dashboard
+                </h3>
+                <p class="project-description">
+                    Enterprise security monitoring tool with real-time visualizations and alert system.
+                </p>
+                <div class="project-links">
+                    <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Live Demo
+                    </a>
+                    <a href="#" class="project-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Source Code
+                    </a>
+                </div>
+            </article>
+            
+            <article class="project">
+                <h3 class="project-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    </svg>
+                    Performance Analysis Tool
+                </h3>
+                <p class="project-description">
+                    Web performance benchmarking solution with detailed metrics and optimization recommendations.
+                </p>
+                <div class="project-links">
+                    <a href="#" class="project-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Source Code
+                    </a>
+                </div>
+            </article>
+        </section>
+
+        <section>
+            <h2 id="skills">Core Skills</h2>
+            <div class="skills">
+                <span class="skill">React</span>
+                <span class="skill">TypeScript</span>
+                <span class="skill">Next.js</span>
+                <span class="skill">Design Systems</span>
+                <span class="skill">CSS/SCSS</span>
+                <span class="skill">GraphQL</span>
+                <span class="skill">Jest</span>
+                <span class="skill">Storybook</span>
+                <span class="skill">Web Components</span>
+                <span class="skill">Webpack</span>
+                <span class="skill">Accessibility</span>
+                <span class="skill">Performance</span>
+                <span class="skill">CI/CD</span>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2023 Alex Developer. Built with semantic HTML and CSS.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced dark mode toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme') || 
+                            (prefersDark.matches ? 'dark' : 'light');
+        
+        // Apply initial theme
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        // Theme icons
+        const lightIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>`;
+        
+        const darkIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>`;
+        
+        function updateToggleIcon() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            themeToggle.innerHTML = isDark ? lightIcon : darkIcon;
+            themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleIcon();
+            
+            // Add animation to clicked element
+            themeToggle.style.animation = 'none';
+            setTimeout(() => {
+                themeToggle.style.animation = 'pulse 0.5s ease';
+            }, 10);
+        });
+        
+        // Initialize
+        updateToggleIcon();
+        
+        // Detect system theme changes
+        prefersDark.addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                updateToggleIcon();
+            }
+        });
+        
+        // Print styles enhancement
+        window.matchMedia('print').addEventListener('change', e => {
+            document.documentElement.setAttribute('data-theme', 'light');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Accessibility: Focus styles for keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+        
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+    </script>
+</body>
+</html>
