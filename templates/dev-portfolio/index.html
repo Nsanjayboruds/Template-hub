@@ -3,250 +3,801 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEVELOPER</title>
-    <link rel="stylesheet" href="/portfolio-hub//templates/dev-portfolio/style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <title>Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #1e293b;
+            --light-color: #f8fafc;
+            --dark-color: #0f172a;
+            --text-color: #334155;
+            --highlight-color: #c7d2fe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            overflow: hidden;
+            border: 5px solid var(--primary-color);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .about-skills {
+            margin-top: 30px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-item {
+            background-color: var(--highlight-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .project-info p {
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: var(--text-color);
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .project-tag {
+            font-size: 12px;
+            background-color: var(--highlight-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--primary-color);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--highlight-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+
+        .contact-text h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .contact-text p {
+            color: var(--text-color);
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.3s;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .btn-outline {
+                margin-left: 10px;
+            }
+            
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    
-    <div class="container">
-        
-        <video class="back-vid" autoplay loop muted plays-inline src="videos/galaxy.mp4"></video>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">DevPortfolio</a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-
-
-        <header data-aos="fade-down" data-aos-duration="2000">
-            <button class="back-arrow" onclick="goBack()">
-  <i class='bx bx-arrow-back'></i>
-</button>
-            <div class="left">
-                <img src="images/miladicode.png" alt="logo">
-                <h2><span style="color: #72a1dea2;">front-end</span>Code</h2>
-            </div>
-
-            <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Skills</a></li>
-                <li><a href="#">Projects</a></li>
-            </ul>
-
-            <div class="box-icons">
-                <p><i class='bx bxl-youtube'></i></p>
-                <p><i class='bx bxl-github'></i></p>
-                <p><i class='bx bxl-linkedin-square'></i></p>
-            </div>
-
-            <div class="menu-icon">
-                <i class='bx bx-menu'></i>
-            </div>            
-        </header>
-        <div class="sidebar">
-            <div class="close-icon">
-                <i class='bx bx-x'></i>
-            </div>
-            
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Skills</a></li>
-                <li><a href="#">Projects</a></li>
-            </ul>
-
-            <div class="social-sidebar">
-                <a><i class='bx bxl-youtube'></i></a>
-                <a><i class='bx bxl-github'></i></a>
-                <a><i class='bx bxl-linkedin-square'></i></a>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cdd2315e-2f9e-44ca-b7e4-459dc5a10e1b.png" alt="Professional developer working on laptop in modern office environment" />
+                </div>
+                <h1>Hi, I'm Alex Developer</h1>
+                <p>Full Stack Developer specializing in modern web technologies and creating impactful digital experiences.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="blackhole-box" data-aos="fade-down" data-aos-duration="2000">
-            <video autoplay loop muted plays-inline src="videos/blackhole.mp4"></video>
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who I Am</h3>
+                    <p>I'm a passionate developer with 5+ years of experience building web applications. I specialize in JavaScript frameworks and love creating intuitive user interfaces with efficient backend systems.</p>
+                    <p>My approach combines technical excellence with thoughtful design to deliver solutions that are both functional and delightful to use.</p>
+                    
+                    <div class="about-skills">
+                        <h3>My Skills</h3>
+                        <div class="skills-list">
+                            <span class="skill-item">JavaScript</span>
+                            <span class="skill-item">React</span>
+                            <span class="skill-item">Node.js</span>
+                            <span class="skill-item">HTML/CSS</span>
+                            <span class="skill-item">TypeScript</span>
+                            <span class="skill-item">MongoDB</span>
+                            <span class="skill-item">Express</span>
+                            <span class="skill-item">Git</span>
+                            <span class="skill-item">Responsive Design</span>
+                            <span class="skill-item">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bfff2920-5d90-4ad1-915c-2ad03b183f39.png" alt="Developer working on multiple computer screens with code editor and design tools" />
+                </div>
+            </div>
         </div>
+    </section>
 
-        <section class="hero ">
-            <div class="hero-info autoBlur" data-aos="fade-right" data-aos-duration="1000">
-                <div class="hero-info-title" >
-                    <i class='bx bxl-sketch'></i>
-                    Front-end Developer Portfolio
-                </div>
-
-                <h1 data-aos="fade-right" data-aos-duration="3000">Providing <span class="gradient">the best</span> Project <span class="gradient">Experience</span></h1>
-
-                <p>I'm a front-end developer with experience in Website, Mobile and Software development. Check out my projects and skills.</p>
-
-                <button><i class='bx bx-send' ></i> Contact Me</button>
-            </div>
-            
-            <div class="skills-video-box " >
-                <video class="skills-video autoBlur" autoplay loop muted plays-inline src="videos/hero-video.mp4"></video>
-            </div>
-        
-            <div class="scroll-down"></div>
-        </section>
-
-        <seaction class="info-section">
-            <h1 class="section-title autoDisplay">Hello,There👋</h1>
-            <div class="info-cards">
-                <div class="card ">
-                    <h1>Hi there, I'm Milad</h1>
-                    <p>With 4 years of experience, I have honed my skills in both frontend and backend dev, creating dynamic and responsive websites.</p>
-                
-                    <img src="images/grid1.png" alt="">
-                </div>
-
-                <div class="card">
-                    <h1>Tech Stack</h1>
-                    <p>I specialize in a variety of languages, frameworks, and tools that allow me to build robust and scalable applications.</p>
-                
-                    <img src="images/grid2.png" alt="">
-                </div>
-
-                <div class="card">
-                    <h1>I’m very flexible with time zone communications & locations</h1>
-                    <p>I'm based in Italy, Bari and open to remote work worldwide.</p>
-                
-                    <video src="videos/glob.mp4" autoplay loop muted plays-inline></video>
-
-                    <button><i class='bx bx-send'></i> Contact Me</button>
-                </div>
-
-                <div class="card">
-                    <h1>My Passion for Coding</h1>
-                    <p>I love solving problems and building things through code. Programming isn't just my profession—it's my passion. I enjoy exploring new technologies, and enhancing my skills.</p>
-                
-                    <img src="images/grid4.png" alt="">
-                </div>
-            </div>
-        </seaction>
-
-        <section class="my-project">
-            <h1 class="section-title autoDisplay">My Projects 👨‍💻</h1>
-            <div class="project-card">
-                <div class="project-vidbox autoBlur" >
-                    <video loop id="projectVideo1" src="videos/project1.mp4"></video>
-                    <div class="hover-sign"></div>
-                </div>
-                <div class="project-info fadein-left">
-                    <h1>Animated <span class="gradient">Gaming</span> Website</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ipsam excepturi ex in corrupti similique dolor nam, suscipit, odio soluta at recusandae nulla, id fugiat!</p>
-                    <button><i class='bx bx-link-external' ></i> Website</button>
-            </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-vidbox autoBlur">
-                    <video loop id="projectVideo2" src="videos/project2.mp4"></video>
-                </div>
-                <div class="project-info fadein-left">
-                    <h1> Modern <span class="gradient">Portfolio</span> Website </h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam modi voluptates assumenda omnis impedit ipsa veritatis soluta earum minima consequatur.</p>
-                    <button><i class='bx bx-link-external' ></i> Website</button>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-vidbox autoBlur">
-                    <video loop id="projectVideo3" src="videos/project3.mp4"></video>
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/45451e68-c4d9-4016-8b89-13348723b166.png" alt="E-commerce website dashboard with product listings and analytics" />
+                    </div>
+                    <div class="project-info">
+                        <h3>E-commerce Dashboard</h3>
+                        <p>A comprehensive admin dashboard for managing products, orders, and customer analytics.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="project-info fadein-left">
-                    <h1>Movie <span class="gradient">Landing</span>  Page</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores numquam saepe itaque sapiente odit neque necessitatibus explicabo hic laudantium ipsam nesciunt ducimus, cumque ratione esse.</p>
-                    <button><i class='bx bx-link-external' ></i> Website</button>
-                </div>
-            </div>
-        </section>
-
-        
-        <section class="skills-section">
-            <h1 class="section-title autoDisplay">
-                My Skills 💪
-            </h1>
-            <div class="skills-box autoDisplay">
-                <img class="skills-image" src="images/digital brain (2).png" alt="">
-                <div class="Designer">
-                    <h1 class="gradient">Designer <i class='bx bx-laptop'></i></h1>
-                    <p>I have expertise in HTML, CSS, JavaScript, and design tools like Figma and Adobe XD. My strength lies in blending aesthetics with functionality to create seamless user experiences.</p>    
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cf2e4e12-147a-483a-8aca-5d98189218a5.png" alt="Task management application interface with kanban board" />
+                    </div>
+                    <div class="project-info">
+                        <h3>Task Management App</h3>
+                        <p>A productivity application for teams to organize tasks with drag-and-drop functionality.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Vue.js</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">Tailwind CSS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="coder">
-                    <h1 class="gradient">Coder <i class='bx bx-code-block' ></i></h1>
-                    <p>I’m skilled in HTML, CSS, JavaScript, and frameworks like React and Node.js. I also have experience with database management using MongoDB and MySQL.</p>
-                </div>
-
-                <div class="slider" reverse="true" style="
-                --width: 100px;
-                --height: 100px;
-                --quantity: 9;
-                ">
-                    <div class="list">
-                        <div class="item" style="--position: 1"><img src="images/1.png" alt=""></div>
-                        <div class="item" style="--position: 2"><img src="images/2.png" alt=""></div>
-                        <div class="item" style="--position: 3"><img src="images/3.webp" alt=""></div>
-                        <div class="item" style="--position: 4"><img src="images/4.webp" alt=""></div>
-                        <div class="item" style="--position: 5"><img src="images/5.png" alt=""></div>
-                        <div class="item" style="--position: 6"><img src="images/6.png" alt=""></div>
-                        <div class="item" style="--position: 7"><img src="images/7.png" alt=""></div>
-                        <div class="item" style="--position: 8"><img src="images/8.png" alt=""></div>
-                        <div class="item" style="--position: 9"><img src="images/9.png" alt=""></div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d4bfc231-3ec3-496e-9270-0ffdca8f7575.png" alt="Social media platform with user profiles and activity feed" />
+                    </div>
+                    <div class="project-info">
+                        <h3>Social Media Platform</h3>
+                        <p>A community platform with user profiles, posts, likes, and real-time notifications.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Next.js</span>
+                            <span class="project-tag">GraphQL</span>
+                            <span class="project-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="contact-section ">
-            <h1 class="section-title autoDisplay">Let's talk😊</h1>
-
-            <div class="social-box autoBlur">
-                <a href="#"><i class='bx bxs-phone'></i> +39 111 222 444</a>
-                <a href="#"><i class='bx bxl-telegram' ></i> Contact Example.com</a>
-                <a href="#"><i class='bx bxl-linkedin-square' ></i> Contact Example.com</a>
-                <div class="social-icons">
-                    <a href="#"><i class='bx bxl-youtube' ></i></a>
-                    <a href="#"><i class='bx bxl-twitter' ></i></a>
-                    <a href="#"><i class='bx bxl-facebook-circle' ></i></a>
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>contact@devportfolio.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone</h3>
+                            <p>+1 (123) 456-7890</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Location</h3>
+                            <p>San Francisco, CA</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="contact-box autoBlur">
-                <p>Wheter you're looking to build a new website, improve your existing platform, or bring a unique project to file. i'm here to help.</p>
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-codepen"></i></a>
+            </div>
+            <p class="footer-text">© 2024 DevPortfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
             
-                <p>Full Name</p>
-                <input placeholder="Your Full name" type="full name">
-
-                <p>Email Address</p>
-                <input placeholder="Your Email" type="Contact">
-
-                <p>Your Message</p>
-                <input  class="input-message" type="contact" placeholder="shaire your thoughts...">
-
-                <button>Send Message <i class='bx bx-mail-send'></i></button>
-            </div>
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
         
-        </section> 
-
-        <section class="footer">
-            <h1>©️2025, Made with ❤️ by Code</h1>
-            <div class="box-icons">
-                <p><i class='bx bxl-youtube'></i></p>
-                <p><i class='bx bxl-github'></i></p>
-                <p><i class='bx bxl-linkedin-square'></i></p>
-            </div>
-        </section>
-
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.getAttribute('href') === '#') return;
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    }
+                }
+            });
+        });
         
-    </div>
-    <script src="/portfolio-hub/templates/dev-portfolio/script.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script >
-      AOS.init();
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Here you would normally send the data to a server
+                console.log('Form submitted:', { name, email, subject, message });
+                
+                // Show success message
+                alert('Thank you for your message! I will get back to you soon.');
+                
+                // Reset form
+                contactForm.reset();
+            });
+        }
+        
+        // Add active class to nav link when scrolling
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-links a');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (window.pageYOffset >= sectionTop - 120 && window.pageYOffset < sectionTop + sectionHeight - 120) {
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${sectionId}`) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
     </script>
-     <script>
-    function goBack() {
-  window.history.back();
-
-    }
-  </script>
 </body>
 </html>
+
