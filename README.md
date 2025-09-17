@@ -9,6 +9,7 @@ Check out the live demo: [https://templatehub-nb.netlify.app](https://templatehu
 ## 📁 Project Structure
 
 Template-hub/
+
 ├── assets/
 │ ├── css/
 │ ├── images/
